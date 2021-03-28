@@ -31,6 +31,8 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import '@/styles/_form.scss';
+
 #app {
   display: flex;
   align-items: center;
@@ -48,7 +50,7 @@ export default {
     flex-direction: column;
     height: 100%;
     width: 100%;
-    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.32);
+    box-shadow: 0 16px 80px rgba(0, 0, 0, 0.32);
 
     aside,
     section {
@@ -59,7 +61,7 @@ export default {
       display: flex;
       flex-direction: column;
       justify-content: center;
-      background: rgb(29, 33, 36);
+      background: #1d2124;
       color: #fff;
       text-align: center;
 
@@ -90,48 +92,8 @@ export default {
         font-weight: 700;
       }
 
-      form {
-        display: flex;
-        flex-direction: column;
-
-        p {
-          margin-bottom: 16px;
-        }
-
-        label {
-          margin-bottom: 4px;
-          font-size: 14px;
-          font-weight: 600;
-          text-transform: uppercase;
-
-          &:not(:first-of-type) {
-            margin-top: 12px;
-          }
-        }
-
-        input {
-          max-width: 300px;
-          height: 32px;
-          padding: 0 8px;
-          background-color: rgb(245, 245, 245);
-          border: #eee solid 1px;
-          border-radius: 2px;
-
-          &:focus {
-            background-color: rgb(250, 250, 250);
-          }
-        }
-
-        button {
-          max-width: 150px;
-          height: 32px;
-          margin-top: 16px;
-          border-radius: 2px;
-          background: rgb(29, 33, 36);
-          color: #fff;
-          text-transform: uppercase;
-          font-weight: 600;
-        }
+      form > p {
+        margin-bottom: 16px;
       }
 
       a {
