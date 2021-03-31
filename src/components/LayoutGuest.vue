@@ -2,7 +2,7 @@
   <div id="layout">
     <main class="card" v-bind:class="styleClass">
       <aside>
-        <h1 class="logo"><span>My</span>notes</h1>
+        <logo />
         <p class="subtitle">Nosso app de notas favorito!</p>
         <p class="about">
           Tenha suas notas salvas e acesse elas de onde e quando quizer
@@ -18,6 +18,9 @@
 <script>
 export default {
   name: 'LayoutGuest',
+  components: {
+    Logo: () => import('@/components/Logo')
+  },
   props: {
     invert: {
       type: Boolean,
@@ -76,14 +79,7 @@ export default {
       }
 
       .logo {
-        font-family: $font-primary;
         font-size: 38px;
-        text-transform: uppercase;
-
-        span {
-          font-family: inherit;
-          font-weight: 400;
-        }
       }
 
       .about {
@@ -113,7 +109,6 @@ export default {
     }
 
     .card {
-      // flex-direction: row;
       height: 600px;
       max-width: 888px;
       margin: 12px;
