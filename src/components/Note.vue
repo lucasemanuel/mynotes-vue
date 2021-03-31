@@ -1,11 +1,16 @@
 <template>
   <div class="note" :class="{ favorited: isFavorite }">
-    <p class="note-body">
-      <button class="note-bookmark">
-        <font-awesome-icon :icon="iconBookmark" />
-      </button>
+    <article class="note-body">
+      <nav class="note-nav">
+        <button class="button-close button">
+          <font-awesome-icon :icon="iconTrash" />
+        </button>
+        <button class="button-bookmark button">
+          <font-awesome-icon :icon="iconBookmark" />
+        </button>
+      </nav>
       {{ content }}
-    </p>
+    </article>
     <span class="note-dates">
       <span class="note-dates">
         <span class="note-created-at">Criado em: {{ createdAt }}</span>
@@ -17,8 +22,7 @@
 
 <script>
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
-import { faBookmark as faRegularBookmark } from '@fortawesome/free-regular-svg-icons'
-import { faBookmark as faSolidBookmark } from '@fortawesome/free-solid-svg-icons'
+import { faBookmark, faTrash } from '@fortawesome/free-solid-svg-icons'
 
 export default {
   name: 'Note',
@@ -40,10 +44,10 @@ export default {
       required: true
     }
   },
-  computed: {
-    iconBookmark: function () {
-      console.log(this.isFavorite)
-      return !this.isFavorite ? faRegularBookmark : faSolidBookmark
+  data () {
+    return {
+      iconBookmark: faBookmark,
+      iconTrash: faTrash
     }
   },
   components: {
@@ -57,25 +61,60 @@ export default {
   width: 100%;
   margin-bottom: 24px;
   padding: 16px;
+  word-break: break-word;
   border-radius: 4px;
   font-size: 18px;
   background: #fff;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.12);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.08);
+
+  @mixin whiteBlack {
+    background: #fff;
+
+    svg > path {
+      transition: color 1s;
+      color: $color-primary;
+    }
+  }
+
+  @mixin blackWhite {
+    background: $color-primary;
+
+    svg > path {
+      transition: color 1s;
+      color: #fff;
+    }
+  }
 
   &-body {
-    .note-bookmark {
-      width: 32px;
-      height: 32px;
-      margin: 0 2px;
+    .note-nav {
       position: relative;
-      top: -22px;
       float: right;
-      background: #fff;
-      border-radius: 4px;
-      transition: background 600;
-      transition-timing-function: ease;
-      border: $color-primary solid 1px;
+      top: -22px;
+      margin: 0 0 -10px 8px;
+
+      .button {
+        width: 32px;
+        height: 32px;
+        background: #fff;
+        border-radius: 4px;
+        transition: background 0.5s;
+        transition-timing-function: ease-in-out;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+
+        &:first-child {
+          margin-right: 8px;
+
+          &:hover {
+            @include blackWhite;
+          }
+        }
+      }
     }
+    // .button {
+
+    //   &-close {
+    //   }
+    // }
   }
 
   .note-dates {
@@ -107,42 +146,22 @@ export default {
     }
   }
 
-  @mixin not-favorited {
-    background: #fff;
-
-    svg > path {
-      transition: color 1s;
-      color: $color-primary;
-    }
-  }
-
-  @mixin favorited {
-    background: $color-primary;
-
-    svg > path {
-      transition: color 1s;
-      color: #fff;
-    }
-  }
-
   &.favorited {
-    border: $color-primary solid 1px;
-
-    .note-bookmark {
-      @include favorited;
+    .button-bookmark {
+      @include blackWhite;
 
       &:hover {
-        @include not-favorited;
+        @include whiteBlack;
       }
     }
   }
 
   &:not(.favorited) {
-    .note-bookmark {
-      @include not-favorited;
+    .button-bookmark {
+      @include whiteBlack;
 
       &:hover {
-        @include favorited;
+        @include blackWhite;
       }
     }
   }
