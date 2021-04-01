@@ -67,7 +67,7 @@ export default {
   background: #fff;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.08);
 
-  @mixin whiteBlack {
+  @mixin whiteToColored {
     background: #fff;
 
     svg > path {
@@ -76,7 +76,7 @@ export default {
     }
   }
 
-  @mixin blackWhite {
+  @mixin coloredToWhite {
     background: $color-primary;
 
     svg > path {
@@ -95,31 +95,36 @@ export default {
       .button {
         width: 32px;
         height: 32px;
-        background: #fff;
         border-radius: 4px;
         transition: background 0.5s;
         transition-timing-function: ease-in-out;
         box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+        @include whiteToColored;
 
         &:first-child {
+          background: $color-danger;
           margin-right: 8px;
 
+          svg > path {
+            color: #fff;
+          }
+
           &:hover {
-            @include blackWhite;
+            background: #fff;
+
+            svg > path {
+              transition: color 1s;
+              color: $color-danger;
+            }
           }
         }
       }
     }
-    // .button {
-
-    //   &-close {
-    //   }
-    // }
   }
 
   .note-dates {
     display: block;
-    margin-top: 4px;
+    margin-top: 8px;
     font-size: 16px;
     font-weight: 600;
     text-align: right;
@@ -148,20 +153,20 @@ export default {
 
   &.favorited {
     .button-bookmark {
-      @include blackWhite;
+      @include coloredToWhite;
 
       &:hover {
-        @include whiteBlack;
+        @include whiteToColored;
       }
     }
   }
 
   &:not(.favorited) {
     .button-bookmark {
-      @include whiteBlack;
+      @include whiteToColored;
 
       &:hover {
-        @include blackWhite;
+        @include coloredToWhite;
       }
     }
   }
