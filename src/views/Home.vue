@@ -8,100 +8,13 @@
     </nav>
     <main>
       <div class="container">
-        <note
-          content="assumenda laudantium labore qui dolores officia consectetur aquia quis
-          placeat delectus eaque magnam. Lorem ipsum dolor sit amet consectetu1.
-          adipisicing elit. Reiciendis voluptates magnam maxime eius. Laborum,
-          sunt incidunt laboriosam neque blanditiis id accusantium eius omnis,
-          remm quia nulla, reprehenderit recusandae repellat libero! Lorem ipsum
-          dolor sit amet consectetur adipisicing elit. Repudiandae officiis2
-          vel222 quaerat ipsam??? Praesentium aperiam, quam natus dolore illum
-          mollitia tempora sed iusto enim. Beatae perferendis similique tempora
-          nisi non!"
-          :isFavorite="true"
-          createdAt="09/12/2020 - 21:17"
-          updatedAt="10/12/2020 - 04:58"
-        />
-        <note
-          content="assumenda laudantium labore qui dolores officia consectetur aquia quis
-          placeat delectus eaque magnam. Lorem ipsum dolor sit amet consectetu1.
-          adipisicing elit. Reiciendis voluptates magnam maxime eius. Laborum,
-          sunt incidunt laboriosam neque blanditiis id accusantium eius omnis,
-          remm quia nulla, reprehenderit recusandae repellat libero! Lorem ipsum
-          dolor sit amet consectetur adipisicing elit. Repudiandae officiis2
-          vel222 quaerat ipsam??? Praesentium aperiam, quam natus dolore illum
-          mollitia tempora sed iusto enim. Beatae perferendis similique tempora
-          nisi non!"
-          :isFavorite="true"
-          createdAt="09/12/2020 - 21:17"
-          updatedAt="10/12/2020 - 04:58"
-        />
-        <note
-          content="assumenda laudantium labore qui dolores officia consectetur aquia quis
-          placeat delectus eaque magnam. Lorem ipsum dolor sit amet consectetu1.
-          adipisicing elit. Reiciendis voluptates magnam maxime eius. Laborum,
-          sunt incidunt laboriosam neque blanditiis id accusantium eius omnis,
-          remm quia nulla, reprehenderit recusandae repellat libero! Lorem ipsum
-          dolor sit amet consectetur adipisicing elit. Repudiandae officiis2
-          vel222 quaerat ipsam??? Praesentium aperiam, quam natus dolore illum
-          mollitia tempora sed iusto enim. Beatae perferendis similique tempora
-          nisi non!"
-          :isFavorite="false"
-          createdAt="09/12/2020 - 21:17"
-          updatedAt="10/12/2020 - 04:58"
-        />
-        <note
-          content="assumenda laudanreuiruieuriueiourweriuewirj
-          placeat delectus eaque magnam. Lorem ipsum dolor sit amet consectetu1.
-          adipisicing elit. Reiciendis voluptates magnam maxime eius. Laborum,
-          sunt incidunt laboriosam neque blanditiis id accusantium eius omnis,
-          remm quia nulla, reprehenderit recusandae repellat libero! Lorem ipsum
-          dolor sit amet consectetur adipisicing elit. Repudiandae officiis2
-          vel222 quaerat ipsam??? Praesentium aperiam, quam natus dolore illum
-          mollitia tempora sed iusto eniewre wtes magnam maxime eius. Laborum,
-          sunt incidunt laboriosam neque blanditiis id accusantium eius omnis,
-          remm quia nulla, reprehenderit recusandae repellat libero! Lorem ipsum
-          dolor sit amet consectetur adipisicing elit. Repudiandae officiis2
-          vel222 quaerat ipsam??? Praesentium aperiam, quam natus dolore illum
-          mollitia tempora sed iusto enim. Beataem. Beatae perferendis similique tempora
-          nisi non!"
-          :isFavorite="false"
-          createdAt="09/12/2020 - 21:17"
-          updatedAt="10/12/2020 - 04:58"
-        />
-        <note
-          content="assumenda laudantium labore qui dolores officia consectetur aquia quis
-          placeat delectus eaque magnam. Lorem ipsum dolor sit amet consectetu1.
-          adipisicing elit. Reiciendis voluptaewre wtes magnam maxime eius. Laborum,
-          sunt incidunt laboriosam neque blanditiis id accusantium eius omnis,
-          remm quia nulla, reprehenderit recusandae repellat libero! Lorem ipsum
-          dolor sit amet consectetur adipisicing elit. Rsum dolor sit amet consectetu1.
-          adipisicing elit. Reiciendis voluptaewre wtes magnam maxime eius. Laborum,
-          sunt incidunt laboriosam neque blanditiis id accusantium eius omnis,
-          remm quia nulla, reprehenderit recusandae repellat libero! Lorem ipsum
-          dolor sit amet consectetur adipisicing elit. Repudiandae officiis2
-          vel222 quaerat ipsam??? Praesentium aperiam, quam natus dolore illum
-          mollitia tempora sed iusto enim. Beatae perferendis similique tempora
-          nisi non!"
-          :isFavorite="true"
-          createdAt="09/12/2020 - 21:17"
-          updatedAt="10/12/2020 - 04:58"
-        />
-        <note
-          content="assumenda laudantium labore qui dolores officia consectetur aquia quis
-          placeat delectus eaque magnam. Lorem ipsum dolor sit amet consectetu1.
-          adipisicing elit. Reice wrew rwr ewr wriendis voluptates magnam maxime eius. Laborum,
-          sunt incidunt laboriosam neque blanditiis id accusantium eius omnis,
-          remm quia nulla, reprehenderit recusandae repellat libero! Lorem ipsum
-          dolor sit amet consectetur adipisicing elit. Repudiandae officiis2
-          vel222 quaerat ipsam??? Praesentium aperiam, quam natus dolore illum
-          mollitia tempora sed iusto enim. Beatae perferendis similique tempora
-          nisi non!"
-          :isFavorite="false"
-          createdAt="09/12/2020 - 21:17"
-          updatedAt="10/12/2020 - 04:58"
-        />
+        <note-list />
       </div>
+      <footer>
+        <span>
+          Github: <a href="https://lucasemanuel.github.io/#/">@lucasemanuel</a>
+        </span>
+      </footer>
     </main>
   </div>
 </template>
@@ -110,7 +23,7 @@
 export default {
   components: {
     Logo: () => import('@/components/Logo'),
-    Note: () => import('@/components/Note')
+    NoteList: () => import('@/components/NoteList')
   }
 }
 </script>
@@ -158,6 +71,21 @@ export default {
       flex-direction: column;
       align-items: center;
       margin: 24px auto;
+    }
+  }
+
+  footer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 96px;
+    background: $color-font;
+    color: #fff;
+    font-size: 20px;
+    font-weight: 300;
+
+    * {
+      color: inherit;
     }
   }
 }
