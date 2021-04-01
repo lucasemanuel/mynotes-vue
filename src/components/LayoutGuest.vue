@@ -67,7 +67,7 @@ export default {
       display: flex;
       flex-direction: column;
       justify-content: center;
-      background: #1d2124;
+      background: $color-primary;
       color: #fff;
       text-align: center;
 
