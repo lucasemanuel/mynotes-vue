@@ -8,6 +8,27 @@
     </nav>
     <main>
       <div class="container">
+        <section>
+          <div class="toggle">
+            <button class="active">Criar</button>
+            <button>Buscar</button>
+          </div>
+
+          <form id="formNote">
+            <textarea
+              type="textarea"
+              rows="5"
+              id="form-note"
+              placeholder="Anote aqui..."
+            />
+            <input
+              type="text"
+              id="form-search"
+              placeholder="Estou buscando..."
+            />
+            <button type="submit">Enviar</button>
+          </form>
+        </section>
         <note-list />
       </div>
       <footer>
@@ -71,6 +92,82 @@ export default {
       flex-direction: column;
       align-items: center;
       margin: 24px auto;
+    }
+
+    section {
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+
+      div.toggle {
+        display: flex;
+        border-radius: 2px;
+        overflow: hidden;
+        height: 32px;
+        width: 220px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.12);
+        background: #fff;
+        margin-bottom: 16px;
+
+        button {
+          flex: 1;
+          flex-shrink: 1;
+          height: 100%;
+          // font-size: 16px;
+          font-weight: 600;
+          text-transform: uppercase;
+          background: #fff;
+          transition: $transition-background-color;
+
+          &:hover {
+            background: #{$color-primary}11;
+            color: $color-primary;
+          }
+
+          &.active {
+            background: #{$color-primary};
+            color: #fff;
+          }
+        }
+      }
+
+      #formNote {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        margin-bottom: 24px;
+
+        textarea {
+          @include note;
+          flex: 1;
+          resize: none;
+          // display: none;
+        }
+
+        input#form-search {
+          @include note;
+          border-radius: 2px;
+        }
+
+        button[type='submit'] {
+          width: 120px;
+          height: 32px;
+          margin-top: 16px;
+          align-self: flex-end;
+          border-radius: 2px;
+          background: $color-primary;
+          color: #fff;
+          font-weight: 600;
+          text-transform: uppercase;
+          box-shadow: 0 4px 8px rgba(0, 0, 0, 0.12);
+          transition: $transition-background-color;
+
+          &:hover {
+            background: #fff;
+            color: $color-primary;
+          }
+        }
+      }
     }
   }
 
