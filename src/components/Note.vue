@@ -58,20 +58,15 @@ export default {
 
 <style lang="scss" scoped>
 .note {
+  @include note;
   width: 100%;
   margin-bottom: 24px;
-  padding: 16px;
-  word-break: break-word;
-  border-radius: 4px;
-  font-size: 18px;
-  background: #fff;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.08);
 
   @mixin whiteToColored {
     background: #fff;
 
     svg > path {
-      transition: color 1s;
+      transition: $transition-background-color;
       color: $color-primary;
     }
   }
@@ -80,7 +75,7 @@ export default {
     background: $color-primary;
 
     svg > path {
-      transition: color 1s;
+      transition: $transition-background-color;
       color: #fff;
     }
   }
@@ -95,9 +90,8 @@ export default {
       .button {
         width: 32px;
         height: 32px;
-        border-radius: 4px;
-        transition: background 0.5s;
-        transition-timing-function: ease-in-out;
+        border-radius: 2px;
+        transition: $transition-background-color;
         box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
         @include whiteToColored;
 
@@ -113,7 +107,7 @@ export default {
             background: #fff;
 
             svg > path {
-              transition: color 1s;
+              transition: $transition-background-color;
               color: $color-danger;
             }
           }
