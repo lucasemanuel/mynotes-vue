@@ -7,3 +7,20 @@
   word-break: break-word;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.08);
 }
+
+@mixin buttonIcon {
+  width: 32px;
+  height: 32px;
+  border-radius: 2px;
+  transition: $transition-background-color;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+@mixin buttonIconColor($background, $color) {
+  background: $background;
+
+  svg > path {
+    transition: $transition-background-color;
+    color: $color;
+  }
+}
