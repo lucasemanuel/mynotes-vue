@@ -2,12 +2,8 @@
   <div class="note" :class="{ favorited: isFavorite }">
     <article class="note-body">
       <nav class="note-nav">
-        <button class="button-close button">
-          <font-awesome-icon :icon="iconTrash" />
-        </button>
-        <button class="button-bookmark button">
-          <font-awesome-icon :icon="iconBookmark" />
-        </button>
+        <trash-button />
+        <bookmark-button :favorited="true" />
       </nav>
       {{ content }}
     </article>
@@ -21,8 +17,8 @@
 </template>
 
 <script>
-import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
-import { faBookmark, faTrash } from '@fortawesome/free-solid-svg-icons'
+import TrashButton from './buttons/TrashButton'
+import BookmarkButton from './buttons/BookmarkButton'
 
 export default {
   name: 'Note',
@@ -44,14 +40,9 @@ export default {
       required: true
     }
   },
-  data () {
-    return {
-      iconBookmark: faBookmark,
-      iconTrash: faTrash
-    }
-  },
   components: {
-    FontAwesomeIcon
+    TrashButton,
+    BookmarkButton
   }
 }
 </script>
@@ -62,24 +53,6 @@ export default {
   width: 100%;
   margin-bottom: 24px;
 
-  @mixin whiteToColored {
-    background: #fff;
-
-    svg > path {
-      transition: $transition-background-color;
-      color: $color-primary;
-    }
-  }
-
-  @mixin coloredToWhite {
-    background: $color-primary;
-
-    svg > path {
-      transition: $transition-background-color;
-      color: #fff;
-    }
-  }
-
   &-body {
     .note-nav {
       position: relative;
@@ -87,31 +60,8 @@ export default {
       top: -22px;
       margin: 0 0 -10px 8px;
 
-      .button {
-        width: 32px;
-        height: 32px;
-        border-radius: 2px;
-        transition: $transition-background-color;
-        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
-        @include whiteToColored;
-
-        &:first-child {
-          background: $color-danger;
-          margin-right: 8px;
-
-          svg > path {
-            color: #fff;
-          }
-
-          &:hover {
-            background: #fff;
-
-            svg > path {
-              transition: $transition-background-color;
-              color: $color-danger;
-            }
-          }
-        }
+      *:not(:last-child) {
+        margin-right: 8px;
       }
     }
   }
@@ -124,8 +74,7 @@ export default {
     text-align: right;
     color: #484949;
 
-    .note-created-at,
-    .note-updated-at {
+    * {
       display: block;
     }
 
@@ -133,34 +82,14 @@ export default {
       .note-created-at::after {
         content: ' |';
       }
+
       .note-updated-at::before {
         content: ' ';
         white-space: pre;
       }
 
-      .note-created-at,
-      .note-updated-at {
+      * {
         display: inline-block;
-      }
-    }
-  }
-
-  &.favorited {
-    .button-bookmark {
-      @include coloredToWhite;
-
-      &:hover {
-        @include whiteToColored;
-      }
-    }
-  }
-
-  &:not(.favorited) {
-    .button-bookmark {
-      @include whiteToColored;
-
-      &:hover {
-        @include coloredToWhite;
       }
     }
   }
