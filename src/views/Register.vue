@@ -1,27 +1,100 @@
 <template>
   <layout-guest :invert="true">
-    <form>
-      <h2>Registre-se no Mynotes</h2>
-      <p>Cria uma conta agora</p>
-      <label for="form-email">Email</label>
-      <input type="email" id="form-email" />
-      <label for="form-confirm-password">Password</label>
-      <input type="password" id="form-password" />
-      <label for="form-confirm-password">Confirme o Password</label>
-      <input type="password" id="form-confirm-password" />
-      <button>Criar</button>
-      <router-link to="/">
-        Entre no app
-      </router-link>
-    </form>
+    <validation-observer ref="observer" v-slot="{ handleSubmit }">
+      <form v-on:submit.prevent="handleSubmit(onSubmit)" novalidate>
+        <h2>Registre-se no Mynotes</h2>
+        <p>Cria uma conta agora</p>
+        <validation-provider
+          v-slot="{ errors, classes }"
+          name="Email"
+          rules="required|email|max:100"
+          class="form-field"
+        >
+          <label for="form-email">Email</label>
+          <input
+            type="email"
+            id="form-email"
+            v-model="form.email"
+            :class="classes"
+            required
+          />
+          <span class="form-field-error">{{ errors[0] }}</span>
+        </validation-provider>
+
+        <validation-provider
+          v-slot="{ errors, classes }"
+          name="Senha"
+          rules="required|min:6|max:32"
+          class="form-field"
+          vid="confirmation"
+        >
+          <label for="form-confirm-password">Senha</label>
+          <input
+            type="password"
+            id="form-password"
+            v-model="form.password"
+            :class="classes"
+            required
+          />
+          <span class="form-field-error">{{ errors[0] }}</span>
+        </validation-provider>
+
+        <validation-provider
+          v-slot="{ errors, classes }"
+          name="Repita a senha"
+          rules="confirmed:confirmation"
+          class="form-field"
+        >
+          <label for="form-confirm-password">Confirme a senha</label>
+          <input
+            type="password"
+            id="form-confirm-password"
+            v-model="form.password_confirmation"
+            :class="classes"
+            required
+          />
+          <span class="form-field-error">{{ errors[0] }}</span>
+        </validation-provider>
+        <button>Criar</button>
+        <router-link to="/">
+          Entre no app
+        </router-link>
+      </form>
+    </validation-observer>
   </layout-guest>
 </template>
 
 <script>
+import { ValidationProvider, ValidationObserver } from 'vee-validate'
+
 export default {
   name: 'Register',
   components: {
-    LayoutGuest: () => import('@/components/LayoutGuest')
+    LayoutGuest: () => import('@/components/LayoutGuest'),
+    ValidationProvider,
+    ValidationObserver
+  },
+  data () {
+    return {
+      form: {
+        email: '',
+        password: '',
+        password_confirmation: ''
+      }
+    }
+  },
+  methods: {
+    async onSubmit () {
+      const form = this.form
+
+      try {
+        await this.$http.post('/users', form)
+        this.router.push({ name: 'Login' })
+      } catch (error) {
+        this.form.password_confirmation = ''
+        console.log(error.response.status)
+      }
+    }
   }
 }
 </script>
