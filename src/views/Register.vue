@@ -89,10 +89,15 @@ export default {
 
       try {
         await this.$http.post('/users', form)
-        this.router.push({ name: 'Login' })
+        this.$toasts.success('Usuário cadastrado com sucesso!')
+        this.$router.push({ name: 'Login' })
       } catch (error) {
         this.form.password_confirmation = ''
-        console.log(error.response.status)
+
+        if (error.response.status === 422) {
+          const { errors } = error.response.data
+          this.$toasts.error(errors[Object.keys(errors)[0]][0])
+        }
       }
     }
   }
