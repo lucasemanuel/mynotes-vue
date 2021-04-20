@@ -52,10 +52,12 @@ export default {
 .alert {
   display: flex;
   flex-direction: row;
+  justify-content: space-between;
   margin-bottom: 16px;
   padding: 16px;
   border-radius: 4px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.24);
+  align-items: center;
 
   &-danger {
     background: $color-danger;
@@ -66,6 +68,7 @@ export default {
   }
 
   .message {
+    display: flex;
     margin-right: 8px;
     color: #fff;
   }
