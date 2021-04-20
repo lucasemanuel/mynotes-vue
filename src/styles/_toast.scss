@@ -1,0 +1,56 @@
+#vue-my-toasts-root {
+  max-width: var(--vueMyToastsWidth);
+  width: var(--vueMyToastsWidth);
+  padding: var(--vueMyToastsPadding);
+  position: fixed;
+  z-index: 999999;
+
+  .vue-my-toasts-wrapper {
+    width: 100%;
+    display: flex;
+    align-items: stretch;
+    justify-content: stretch;
+  }
+}
+
+.bottom-right {
+  flex-direction: column-reverse;
+  bottom: 0;
+  right: 0;
+}
+
+.bottom-left {
+  flex-direction: column-reverse;
+  bottom: 0;
+  left: 0;
+}
+
+.bottom-middle {
+  flex-direction: column-reverse;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.top-right {
+  flex-direction: column;
+  top: 0;
+  right: 0;
+}
+
+.top-left {
+  flex-direction: column;
+  top: 0;
+  left: 0;
+}
+
+.top-middle {
+  flex-direction: column;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.vue-my-toasts-full {
+  width: 100% !important;
+}
