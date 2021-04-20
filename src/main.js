@@ -8,6 +8,18 @@ import { extend } from 'vee-validate'
 import * as rules from 'vee-validate/dist/rules'
 import { messages } from 'vee-validate/dist/locale/pt_BR.json'
 
+import VueMyToasts from 'vue-my-toasts'
+import Toast from '@/components/Toast'
+
+Vue.use(VueMyToasts, {
+  component: Toast,
+  options: {
+    width: '400px',
+    position: 'top-right',
+    padding: '2rem'
+  }
+})
+
 Object.keys(rules).forEach(rule => {
   extend(rule, {
     ...rules[rule],
