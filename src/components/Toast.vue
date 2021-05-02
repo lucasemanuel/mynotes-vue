@@ -60,17 +60,27 @@ export default {
   align-items: center;
 
   &-danger {
-    background: $color-danger;
+    background: lighten($color-danger, 20%);
+    // border: lighten($color-danger, 8%) solid 1px;
+
+    span {
+      color: darken($color-danger, 32%);
+    }
   }
 
   &-success {
-    background: $color-primary;
+    background: lighten($color-primary, 56%);
+    // border: lighten($color-primary, 8%) solid 1px;
+
+    span {
+      color: darken($color-primary, 20%);
+    }
   }
 
   .message {
     display: flex;
     margin-right: 8px;
-    color: #fff;
+    // color: #fff;
   }
 
   button {
@@ -78,7 +88,7 @@ export default {
     font-size: 24px;
 
     span {
-      color: #fff;
+      // color: #fff;
       font-weight: bold;
     }
   }
