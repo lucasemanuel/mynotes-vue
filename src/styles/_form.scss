@@ -1,11 +1,38 @@
 form {
   display: flex;
   flex-direction: column;
+  width: 100%;
+
+  h1,
+  h2,
+  h3 {
+    font-family: $font-primary;
+    font-weight: 700;
+  }
+
+  p {
+    margin-bottom: 16px;
+  }
+
+  a {
+    display: inline;
+    margin-top: 20px;
+  }
+
+  button {
+    max-width: 150px;
+    height: 32px;
+    margin-top: 16px;
+    border-radius: 2px;
+    background: $color-font;
+    color: #fff;
+    text-transform: uppercase;
+    font-weight: 600;
+  }
 
   .form-field {
     display: flex;
     flex-direction: column;
-    max-width: 300px;
     margin-bottom: 12px;
     font-size: 14px;
 
@@ -18,13 +45,13 @@ form {
     input {
       height: 32px;
       padding: 0 8px;
-      background-color: #f5f5f5;
+      background: #f5f5f5;
       border: #eee solid 1px;
       border-radius: 2px;
       transition: border-color 0.4s ease-in-out;
 
       &:focus {
-        background-color: #fafafa;
+        background: #fafafa;
       }
 
       &.valid {
@@ -41,14 +68,11 @@ form {
     }
   }
 
-  button {
-    max-width: 150px;
-    height: 32px;
-    margin-top: 16px;
-    border-radius: 2px;
-    background: $color-font;
-    color: #fff;
-    text-transform: uppercase;
-    font-weight: 600;
+  @media (min-width: 744px) {
+    flex: 1;
+  }
+
+  @media (min-width: 400px) {
+    width: 300px;
   }
 }
