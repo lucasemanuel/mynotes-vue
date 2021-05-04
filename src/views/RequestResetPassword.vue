@@ -3,6 +3,9 @@
     <validation-observer ref="observer" v-slot="{ handleSubmit }">
       <form v-on:submit.prevent="handleSubmit(onSubmit)" novalidate>
         <h2>Esqueci minha senha</h2>
+        <p>
+          Você vai receber um email contendo o link para alterar a senha.
+        </p>
         <validation-provider
           v-slot="{ errors, classes }"
           name="Email"
@@ -47,9 +50,24 @@ export default {
   methods: {
     async onSubmit () {
       try {
-        const response = await this.$http.post('/', this.form)
-        console.log(response)
+        await this.$http.post('/auth/recovery', this.form)
+
+        this.$toasts.push({
+          type: 'success',
+          message:
+            'Email enviado com sucesso, verifique a sua caixa de entrada!',
+          duration: 6000
+        })
       } catch (error) {
+        const { status } = error.response
+
+        if (status === 403) {
+          this.$toasts.warning(
+            'Já foi enviado um email de recuperação de senha para essa conta.'
+          )
+        } else if (status === 400 || status === 404) {
+          this.$toasts.error('Falha ao enviar link para resetar senha.')
+        }
       } finally {
         this.form.email = ''
       }
@@ -63,9 +81,5 @@ export default {
 
 section {
   padding: 24px;
-}
-
-h2 {
-  margin-bottom: 16px;
 }
 </style>
