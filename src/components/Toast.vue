@@ -27,6 +27,11 @@ export default {
       type: [String, Boolean],
       required: false,
       default: false
+    },
+    duration: {
+      type: Number,
+      required: false,
+      default: 6000
     }
   },
   computed: {
