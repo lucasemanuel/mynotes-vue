@@ -95,7 +95,7 @@ export default {
         this.$toasts.success('Usuário cadastrado com sucesso!')
         this.$router.push({ name: 'Login' })
       } catch (error) {
-        this.form.password_confirmation = ''
+        this.form.password_confirmation = this.form.password = ''
 
         if (error.response.status === 422) {
           const { errors } = error.response.data
