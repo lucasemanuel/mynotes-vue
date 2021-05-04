@@ -2,7 +2,8 @@
   <section>
     <validation-observer ref="observer" v-slot="{ handleSubmit }">
       <form v-on:submit.prevent="handleSubmit(onSubmit)" novalidate>
-        <h2>Esqueci minha senha</h2>
+        <h2>Nova senha</h2>
+        <p>Altere a senha da sua conta.</p>
         <validation-provider
           v-slot="{ errors, classes }"
           name="Email"
@@ -75,18 +76,40 @@ export default {
   data () {
     return {
       form: {
-        email: ''
+        email: '',
+        password: '',
+        password_confirmation: ''
       }
+    }
+  },
+  computed: {
+    tokenRecovery () {
+      return this.$route.params.code
     }
   },
   methods: {
     async onSubmit () {
       try {
-        const response = await this.$http.post('/', this.form)
-        console.log(response)
+        await this.$http.patch('/users', {
+          ...this.form,
+          token: this.tokenRecovery
+        })
+
+        this.$toasts.success('Senha alterada com sucesso.')
+        this.$router.push({ name: 'Login' })
       } catch (error) {
+        const { status } = error.response
+
+        if (status !== 422) {
+          this.$toasts.error('Falha ao atualizar senha!')
+          setTimeout(() => {
+            this.$toasts.warning(
+              'Você está utilizando o link enviado por email?'
+            )
+          }, 2000)
+        }
       } finally {
-        this.form.email = ''
+        this.form.password_confirmation = this.form.password = ''
       }
     }
   }
@@ -98,9 +121,5 @@ export default {
 
 section {
   padding: 24px;
-}
-
-h2 {
-  margin-bottom: 16px;
 }
 </style>
