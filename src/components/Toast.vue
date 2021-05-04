@@ -69,11 +69,20 @@ export default {
   }
 
   &-success {
-    background: lighten($color-primary, 56%);
+    background: lighten($color-primary, 50%);
     // border: lighten($color-primary, 8%) solid 1px;
 
     span {
       color: darken($color-primary, 20%);
+    }
+  }
+
+  &-warning {
+    background: lighten($color-warning, 36%);
+    // border: lighten($color-primary, 8%) solid 1px;
+
+    span {
+      color: darken($color-warning, 32%);
     }
   }
 
