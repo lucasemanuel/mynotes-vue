@@ -24,8 +24,8 @@ const routes = [
     component: () => import('@/views/Password'),
     children: [
       {
-        path: 'send-mail',
-        name: 'SendMailResetPassword',
+        path: 'request-recovery-password',
+        name: 'RequestRecoverPassword',
         component: () => import('@/views/RequestResetPassword')
       },
       {
@@ -42,7 +42,8 @@ const routes = [
 ]
 
 const router = new VueRouter({
-  routes
+  routes,
+  mode: 'history'
 })
 
 export default router
