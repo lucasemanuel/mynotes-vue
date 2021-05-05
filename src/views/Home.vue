@@ -1,6 +1,6 @@
 <template>
   <div id="layout">
-    <nav>
+    <nav class="header">
       <div class="container">
         <Logo size="24px" />
         <span>Sair</span>
@@ -10,6 +10,7 @@
       <div class="container">
         <toggle-form />
         <note-list />
+        <pagination />
       </div>
       <footer>
         <span>
@@ -27,7 +28,8 @@ export default {
   components: {
     Logo: () => import('@/components/Logo'),
     NoteList: () => import('@/components/NoteList'),
-    ToggleForm: () => import('@/components/ToggleForm')
+    ToggleForm: () => import('@/components/ToggleForm'),
+    Pagination: () => import('@//components/Pagination')
   },
   created () {
     this.fetchNotes()
@@ -51,7 +53,7 @@ export default {
   overflow: hidden;
   background: #e2e7e7;
 
-  nav {
+  nav.header {
     background-color: $color-primary;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.16);
 
