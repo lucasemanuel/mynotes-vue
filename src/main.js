@@ -2,6 +2,7 @@ import Vue from 'vue'
 import App from '@/App.vue'
 import router from '@/router'
 import store from '@/store'
+import '@/helpers/filters'
 
 import { extend } from 'vee-validate'
 import * as rules from 'vee-validate/dist/rules'
