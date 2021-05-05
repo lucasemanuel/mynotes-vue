@@ -44,7 +44,10 @@
           <router-link to="register">
             Crie sua conta
           </router-link>
-          <router-link to="recovery-password" class="link-recovery-password">
+          <router-link
+            to="password/request-recovery-password"
+            class="link-recovery-password"
+          >
             Esqueci minha senha
           </router-link>
         </form>
@@ -55,6 +58,7 @@
 
 <script>
 import { ValidationProvider, ValidationObserver } from 'vee-validate'
+import { mapActions } from 'vuex'
 
 export default {
   name: 'Login',
@@ -73,10 +77,11 @@ export default {
     }
   },
   methods: {
+    ...mapActions(['login']),
     async onSubmit () {
       try {
-        const response = await this.$http.post('/auth/login', this.form)
-        console.log(response)
+        await this.login(this.form)
+        this.$router.push('/')
       } catch (error) {
         this.form.password = ''
 

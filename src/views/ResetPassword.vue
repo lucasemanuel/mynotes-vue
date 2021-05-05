@@ -55,7 +55,7 @@
           />
           <span class="form-field-error">{{ errors[0] }}</span>
         </validation-provider>
-        <button>Enviar</button>
+        <button type="submit">Salvar</button>
         <router-link to="login">
           Retornar ao Login
         </router-link>
@@ -66,6 +66,7 @@
 
 <script>
 import { ValidationProvider, ValidationObserver } from 'vee-validate'
+import { mapActions } from 'vuex'
 
 export default {
   name: 'RequestResetPassword',
@@ -88,9 +89,10 @@ export default {
     }
   },
   methods: {
+    ...mapActions(['updatePassword']),
     async onSubmit () {
       try {
-        await this.$http.patch('/users', {
+        await this.updatePassword({
           ...this.form,
           token: this.tokenRecovery
         })

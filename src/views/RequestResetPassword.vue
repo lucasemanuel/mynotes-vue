@@ -23,7 +23,7 @@
           <span class="form-field-error">{{ errors[0] }}</span>
         </validation-provider>
         <button>Enviar</button>
-        <router-link to="login">
+        <router-link :to="{ name: 'Login' }">
           Retornar ao Login
         </router-link>
       </form>
@@ -33,6 +33,7 @@
 
 <script>
 import { ValidationProvider, ValidationObserver } from 'vee-validate'
+import { mapActions } from 'vuex'
 
 export default {
   name: 'RequestResetPassword',
@@ -48,16 +49,14 @@ export default {
     }
   },
   methods: {
+    ...mapActions(['recoveryPassword']),
     async onSubmit () {
       try {
-        await this.$http.post('/auth/recovery', this.form)
+        await this.recoveryPassword(this.form)
 
-        this.$toasts.push({
-          type: 'success',
-          message:
-            'Email enviado com sucesso, verifique a sua caixa de entrada!',
-          duration: 6000
-        })
+        this.$toasts.success(
+          'Email enviado com sucesso, verifique a sua caixa de entrada!'
+        )
       } catch (error) {
         const { status } = error.response
 

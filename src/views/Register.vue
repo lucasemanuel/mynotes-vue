@@ -68,6 +68,7 @@
 
 <script>
 import { ValidationProvider, ValidationObserver } from 'vee-validate'
+import { mapActions } from 'vuex'
 
 export default {
   name: 'Register',
@@ -87,11 +88,10 @@ export default {
     }
   },
   methods: {
+    ...mapActions(['addUser']),
     async onSubmit () {
-      const form = this.form
-
       try {
-        await this.$http.post('/users', form)
+        await this.addUser(this.form)
         this.$toasts.success('Usuário cadastrado com sucesso!')
         this.$router.push({ name: 'Login' })
       } catch (error) {
