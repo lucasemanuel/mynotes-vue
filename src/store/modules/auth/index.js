@@ -1,4 +1,4 @@
-import { login } from '@/services/api/modules/auth'
+import { login, recoveryPassword } from '@/services/api/modules/auth'
 import { setToken } from '@/services/storage'
 
 const actions = {
@@ -12,6 +12,9 @@ const actions = {
         })
         .catch(error => reject(error))
     })
+  },
+  recoveryPassword (context, payload) {
+    return recoveryPassword(payload)
   }
 }
 
