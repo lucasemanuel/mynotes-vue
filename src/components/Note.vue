@@ -3,14 +3,16 @@
     <article class="note-body">
       <nav class="note-nav">
         <trash-button />
-        <bookmark-button :favorited="true" />
+        <bookmark-button :favorited="isFavorite" />
       </nav>
       {{ content }}
     </article>
     <span class="note-dates">
-      <span class="note-dates">
-        <span class="note-created-at">Criado em: {{ createdAt }}</span>
-        <span class="note-updated-at">Atualizado em: {{ updatedAt }}</span>
+      <span class="note-created-at">
+        Criado em: {{ createdAt | data }} - {{ createdAt | hour }}
+      </span>
+      <span class="note-updated-at">
+        Atualizado em: {{ updatedAt | data }} - {{ updatedAt | hour }}
       </span>
     </span>
   </div>
@@ -70,11 +72,10 @@ export default {
     display: block;
     margin-top: 8px;
     font-size: 16px;
-    font-weight: 600;
     text-align: right;
-    color: #484949;
 
     * {
+      color: #757575;
       display: block;
     }
 
