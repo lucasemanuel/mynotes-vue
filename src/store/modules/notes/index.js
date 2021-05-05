@@ -7,16 +7,24 @@ const state = {
 
 const mutations = {
   [SET_NOTES_MAP] (state, payload) {
+    console.log(payload)
     state.notes_map = payload
   }
 }
 
 const actions = {
-  fetchNotes ({ commit }) {
+  fetchNotes ({ commit }, payload = {}) {
     return new Promise((resolve, reject) => {
-      listNotes()
+      const params = {}
+      const { page, text, favorite } = payload
+      if (payload.page !== undefined) params.page = page
+      if (text !== undefined) params.text = text
+      if (favorite !== undefined) params.favorite = favorite
+
+      listNotes(params)
         .then(response => {
           commit(SET_NOTES_MAP, response.data)
+          console.log(response)
           resolve(response)
         })
         .catch(error => reject(error))
