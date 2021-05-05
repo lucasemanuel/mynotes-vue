@@ -25,8 +25,11 @@ instance.interceptors.response.use(
   response => response,
   error => {
     const status = error.response?.status
-    if (status === 401) {
+    const { url } = error.response?.config
+
+    if ((status === 401) & !url.includes('login')) {
       removeToken()
+      document.location.reload()
     }
     return Promise.reject(error)
   }
