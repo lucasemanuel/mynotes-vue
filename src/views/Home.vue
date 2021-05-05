@@ -21,11 +21,19 @@
 </template>
 
 <script>
+import { mapActions } from 'vuex'
+
 export default {
   components: {
     Logo: () => import('@/components/Logo'),
     NoteList: () => import('@/components/NoteList'),
     ToggleForm: () => import('@/components/ToggleForm')
+  },
+  created () {
+    this.fetchNotes()
+  },
+  methods: {
+    ...mapActions(['fetchNotes'])
   }
 }
 </script>
