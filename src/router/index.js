@@ -1,13 +1,16 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 
+import { getToken } from '@/services/storage'
+
 Vue.use(VueRouter)
 
 const routes = [
   {
     path: '/',
     name: 'Home',
-    component: () => import('@/views/Home')
+    component: () => import('@/views/Home'),
+    meta: { requiresAuth: true }
   },
   {
     path: '/login',
@@ -44,6 +47,16 @@ const routes = [
 const router = new VueRouter({
   routes,
   mode: 'history'
+})
+
+router.beforeEach((to, from, next) => {
+  const token = getToken()
+  if (to.matched.some(record => record.meta.requiresAuth) && !token) {
+    return next({ name: 'Login' })
+  } else if (!to.matched.some(record => record.meta.requiresAuth) && token) {
+    return next({ name: 'Home' })
+  }
+  return next()
 })
 
 export default router
