@@ -1,28 +1,76 @@
 <template>
   <section>
     <div class="toggle">
-      <button class="active">Criar</button>
-      <button>Buscar</button>
+      <button
+        :class="{ active: toggle }"
+        v-on:click="onToggle"
+        v-bind:disabled="toggle"
+      >
+        Criar
+      </button>
+      <button
+        :class="{ active: !toggle }"
+        v-on:click="onToggle"
+        v-bind:disabled="!toggle"
+      >
+        Buscar
+      </button>
     </div>
-    <form id="formNote">
-      <bookmark-button />
+    <form id="formNote" v-on:submit.prevent="onSubmit">
+      <bookmark-button
+        :favorited="form.is_favorite"
+        v-on:click.native="onFavorite"
+      />
       <textarea
         type="textarea"
         rows="5"
         id="inputNote"
         placeholder="Anote aqui..."
+        v-model="form.body"
+        v-if="toggle"
       />
-      <input type="text" id="inputSearch" placeholder="Estou buscando..." />
+      <input
+        type="text"
+        id="inputSearch"
+        placeholder="Estou buscando..."
+        v-model="form.body"
+        v-else
+      />
       <button type="submit">Enviar</button>
     </form>
   </section>
 </template>
 
 <script>
+import { mapActions } from 'vuex'
+
 export default {
   name: 'ToggleForm',
   components: {
     BookmarkButton: () => import('../components/buttons/BookmarkButton')
+  },
+  data () {
+    return {
+      toggle: true,
+      form: {
+        body: '',
+        is_favorite: false
+      }
+    }
+  },
+  methods: {
+    ...mapActions(['fetchNotes', 'addNote']),
+    onToggle () {
+      this.toggle = !this.toggle
+    },
+    onFavorite () {
+      this.form.is_favorite = !this.form.is_favorite
+    },
+    onSubmit () {
+      if (this.toggle) {
+        this.addNote(this.form)
+      }
+    }
   }
 }
 </script>
@@ -58,6 +106,7 @@ section {
       }
 
       &.active {
+        cursor: initial;
         background: #{$color-primary};
         color: #fff;
       }
@@ -88,7 +137,7 @@ section {
     input#inputSearch {
       @include note;
       border-radius: 2px;
-      display: none;
+      // display: none;
     }
 
     button[type='submit'] {
