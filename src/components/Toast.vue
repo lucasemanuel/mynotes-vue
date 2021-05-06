@@ -74,7 +74,7 @@ export default {
   }
 
   &-success {
-    background: lighten($color-primary, 50%);
+    background: lighten($color-primary, 56%);
     // border: lighten($color-primary, 8%) solid 1px;
 
     span {
