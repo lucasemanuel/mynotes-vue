@@ -8,7 +8,9 @@
           v-on:click.native="toggleFavoriteNote(id)"
         />
       </nav>
-      {{ body }}
+      <span contenteditable="true" @input="onChangeBody">
+        {{ content }}
+      </span>
     </article>
     <span class="note-dates">
       <span class="note-created-at">
@@ -24,6 +26,8 @@
 <script>
 import TrashButton from './buttons/TrashButton'
 import BookmarkButton from './buttons/BookmarkButton'
+
+import _ from 'lodash'
 
 import { mapActions } from 'vuex'
 
@@ -55,13 +59,46 @@ export default {
     TrashButton,
     BookmarkButton
   },
+  data () {
+    return {
+      body: this.content
+    }
+  },
+  watch: {
+    body: function (newBody, oldBody) {
+      this.debouncedGetBody()
+    }
+  },
+  mounted () {
+    this.debouncedGetBody = _.debounce(this.onUpdate, 1000)
+  },
   methods: {
-    ...mapActions(['deleteNote', 'toggleFavoriteNote']),
+    ...mapActions(['deleteNote', 'toggleFavoriteNote', 'updateNote']),
     onDelete () {
       const result = confirm('Tem certeza que deseja excluir essa nota?')
       if (result) {
         this.deleteNote(this.id)
       }
+    },
+    onChangeBody (event) {
+      this.body = event.target.innerText
+    },
+    onUpdate () {
+      this.updateNote({
+        id: this.id,
+        body: this.body
+      })
+        .then(response => {
+          this.$toasts.success('Nota atualizada com sucesso!')
+        })
+        .catch(error => {
+          const status = error.response?.status
+
+          if (status === 422) {
+            const { errors } = error.response.data
+            this.$toasts.error(errors[Object.keys(errors)[0]][0])
+          }
+        })
     }
   }
 }
