@@ -5,10 +5,19 @@ import {
   remove as removeNote,
   create as createNote
 } from '@/services/api/modules/note'
-import { SET_NOTES_MAP, REMOVE_NOTE, SET_NOTE } from './mutation-types'
+import {
+  SET_NOTES_MAP,
+  REMOVE_NOTE,
+  SET_NOTE,
+  SET_SEARCH_PARAMS
+} from './mutation-types'
 
 const state = {
-  notes_map: {}
+  notes_map: {},
+  search_params: {
+    text: undefined,
+    favorite: undefined
+  }
 }
 
 const mutations = {
@@ -29,16 +38,25 @@ const mutations = {
 
     data.splice(indexToReplace, 0, newNote)
     state.notes_map.data = data
+  },
+  [SET_SEARCH_PARAMS] (
+    state,
+    payload = { text: undefined, favorite: undefined }
+  ) {
+    state.search_params = payload
   }
 }
 
 const actions = {
-  fetchNotes ({ commit }, payload = {}) {
+  fetchNotes ({ state, commit }, payload = {}) {
     const params = {}
-    const { page, text, favorite } = payload
-    if (payload.page !== undefined) params.page = page
-    if (text !== undefined) params.text = text
-    if (favorite !== undefined) params.favorite = favorite
+    if (payload.page !== undefined) params.page = payload.page
+    if (state.search_params.text !== undefined) {
+      params.text = state.search_params.text
+    }
+    if (state.search_params.favorite !== undefined) {
+      params.favorite = state.search_params.favorite
+    }
 
     return new Promise((resolve, reject) => {
       listNotes(params)
