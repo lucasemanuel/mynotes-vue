@@ -4,6 +4,10 @@ export const index = payload => {
   return api.get('/notes', { params: payload })
 }
 
+export const create = payload => {
+  return api.post('/notes/', payload)
+}
+
 export const update = ({ id, body }) => {
   return api.put(`/notes/${id}`, {
     body
