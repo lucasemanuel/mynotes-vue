@@ -2,8 +2,11 @@
   <div class="note" :class="{ favorited: isFavorite }">
     <article class="note-body">
       <nav class="note-nav">
-        <trash-button />
-        <bookmark-button :favorited="isFavorite" />
+        <trash-button v-on:click.native="onDelete" />
+        <bookmark-button
+          :favorited="isFavorite"
+          v-on:click.native="toggleFavoriteNote(id)"
+        />
       </nav>
       {{ content }}
     </article>
@@ -22,9 +25,15 @@
 import TrashButton from './buttons/TrashButton'
 import BookmarkButton from './buttons/BookmarkButton'
 
+import { mapActions } from 'vuex'
+
 export default {
   name: 'Note',
   props: {
+    id: {
+      type: Number,
+      required: true
+    },
     content: {
       type: String,
       required: true
@@ -45,6 +54,15 @@ export default {
   components: {
     TrashButton,
     BookmarkButton
+  },
+  methods: {
+    ...mapActions(['deleteNote', 'toggleFavoriteNote']),
+    onDelete () {
+      const result = confirm('Tem certeza que deseja excluir essa nota?')
+      if (result) {
+        this.deleteNote(this.id)
+      }
+    }
   }
 }
 </script>
