@@ -14,7 +14,9 @@
       </div>
       <footer>
         <span>
-          Github: <a href="https://lucasemanuel.github.io/#/">@lucasemanuel</a>
+          Github:
+          <a href="https://lucasemanuel.github.io/#/">@lucasemanuel</a>
+          - (<a href="https://github.com/lucasemanuel/mynotes">repo</a>)
         </span>
       </footer>
     </main>
@@ -88,6 +90,7 @@ export default {
 
     div.container {
       @include container;
+      min-height: calc(100vh - 54px - 64px - 24px * 2);
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -99,11 +102,11 @@ export default {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 96px;
+    height: 64px;
     background: $color-font;
     color: #fff;
     font-size: 20px;
-    font-weight: 300;
+    font-weight: 400;
 
     * {
       color: inherit;
