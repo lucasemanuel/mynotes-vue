@@ -36,13 +36,14 @@
         v-model="form.body"
         v-else
       />
-      <button type="submit">Enviar</button>
+      <button type="submit">{{ this.toggle ? 'Salvar' : 'Buscar' }}</button>
     </form>
   </section>
 </template>
 
 <script>
-import { mapActions } from 'vuex'
+import { SET_SEARCH_PARAMS } from '@/store/modules/notes/mutation-types'
+import { mapActions, mapMutations } from 'vuex'
 
 export default {
   name: 'ToggleForm',
@@ -60,15 +61,30 @@ export default {
   },
   methods: {
     ...mapActions(['fetchNotes', 'addNote']),
+    ...mapMutations([SET_SEARCH_PARAMS]),
+    resetForm () {
+      this.form = {
+        body: '',
+        is_favorite: false
+      }
+    },
     onToggle () {
       this.toggle = !this.toggle
+      this.resetForm()
     },
     onFavorite () {
       this.form.is_favorite = !this.form.is_favorite
     },
-    onSubmit () {
+    async onSubmit () {
       if (this.toggle) {
-        this.addNote(this.form)
+        await this.addNote(this.form)
+        this.resetForm()
+      } else {
+        await this[SET_SEARCH_PARAMS]({
+          text: this.form.body,
+          favorite: this.form.is_favorite ? 1 : undefined
+        })
+        await this.fetchNotes()
       }
     }
   }
