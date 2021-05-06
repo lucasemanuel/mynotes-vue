@@ -8,7 +8,7 @@
           v-on:click.native="toggleFavoriteNote(id)"
         />
       </nav>
-      {{ content }}
+      {{ body }}
     </article>
     <span class="note-dates">
       <span class="note-created-at">
