@@ -1,7 +1,8 @@
 import {
   index as listNotes,
-  remove as removeNote,
-  mark as favoriteNote
+  update as updateNote,
+  mark as favoriteNote,
+  remove as removeNote
 } from '@/services/api/modules/note'
 import { SET_NOTES_MAP, REMOVE_NOTE, SET_NOTE } from './mutation-types'
 
@@ -18,11 +19,14 @@ const mutations = {
       return note.id !== id
     })
   },
-  [SET_NOTE] (state, { id, note }) {
-    const data = state.notes_map.data.filter(note => {
+  [SET_NOTE] (state, { id, note: newNote }) {
+    let indexToReplace = 0
+    const data = state.notes_map.data.filter((note, index) => {
+      if (note.id === id) indexToReplace = index
       return note.id !== id
     })
-    data.splice(0, 0, note)
+
+    data.splice(indexToReplace, 0, newNote)
     state.notes_map.data = data
   }
 }
@@ -39,7 +43,6 @@ const actions = {
       listNotes(params)
         .then(response => {
           commit(SET_NOTES_MAP, response.data)
-          console.log(response)
           resolve(response)
         })
         .catch(error => reject(error))
@@ -58,6 +61,16 @@ const actions = {
   toggleFavoriteNote ({ commit }, id) {
     return new Promise((resolve, reject) => {
       favoriteNote(id)
+        .then(response => {
+          commit(SET_NOTE, { id, note: response.data })
+          resolve(response)
+        })
+        .catch(error => reject(error))
+    })
+  },
+  updateNote ({ commit }, { id, body }) {
+    return new Promise((resolve, reject) => {
+      updateNote({ id, body })
         .then(response => {
           commit(SET_NOTE, { id, note: response.data })
           resolve(response)
