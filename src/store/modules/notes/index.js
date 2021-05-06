@@ -2,7 +2,8 @@ import {
   index as listNotes,
   update as updateNote,
   mark as favoriteNote,
-  remove as removeNote
+  remove as removeNote,
+  create as createNote
 } from '@/services/api/modules/note'
 import { SET_NOTES_MAP, REMOVE_NOTE, SET_NOTE } from './mutation-types'
 
@@ -33,16 +34,26 @@ const mutations = {
 
 const actions = {
   fetchNotes ({ commit }, payload = {}) {
-    return new Promise((resolve, reject) => {
-      const params = {}
-      const { page, text, favorite } = payload
-      if (payload.page !== undefined) params.page = page
-      if (text !== undefined) params.text = text
-      if (favorite !== undefined) params.favorite = favorite
+    const params = {}
+    const { page, text, favorite } = payload
+    if (payload.page !== undefined) params.page = page
+    if (text !== undefined) params.text = text
+    if (favorite !== undefined) params.favorite = favorite
 
+    return new Promise((resolve, reject) => {
       listNotes(params)
         .then(response => {
           commit(SET_NOTES_MAP, response.data)
+          resolve(response)
+        })
+        .catch(error => reject(error))
+    })
+  },
+  addNote ({ commit }, payload) {
+    return new Promise((resolve, reject) => {
+      createNote(payload)
+        .then(response => {
+          commit(SET_NOTE, { id: response.data.id, note: response.data })
           resolve(response)
         })
         .catch(error => reject(error))
