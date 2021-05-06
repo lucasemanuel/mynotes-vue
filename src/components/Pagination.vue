@@ -38,9 +38,11 @@ export default {
   },
   methods: {
     ...mapActions(['fetchNotes']),
-    selectPage (page) {
+    async selectPage (page) {
       if (this.currentPage !== page) {
-        this.fetchNotes({ page })
+        await this.fetchNotes({ page })
+        const element = document.getElementsByTagName('main')[0]
+        element.scrollTo(0, 0)
       }
     }
   }
