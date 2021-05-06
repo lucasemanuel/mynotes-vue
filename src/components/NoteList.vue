@@ -3,6 +3,7 @@
     <note
       v-for="note in notes"
       :key="note.id"
+      :id="note.id"
       :content="note.body"
       :isFavorite="!!note.is_favorite"
       :createdAt="note.created_at"
