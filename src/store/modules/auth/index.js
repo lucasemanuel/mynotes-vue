@@ -1,5 +1,5 @@
-import { login, recoveryPassword } from '@/services/api/modules/auth'
-import { setToken } from '@/services/storage'
+import { login, recoveryPassword, logout } from '@/services/api/modules/auth'
+import { setToken, removeToken } from '@/services/storage'
 
 const actions = {
   login (context, payload) {
@@ -8,6 +8,16 @@ const actions = {
         .then(response => {
           const { token } = response.data
           setToken(token)
+          resolve(response)
+        })
+        .catch(error => reject(error))
+    })
+  },
+  logout () {
+    return new Promise((resolve, reject) => {
+      logout()
+        .then(response => {
+          removeToken()
           resolve(response)
         })
         .catch(error => reject(error))

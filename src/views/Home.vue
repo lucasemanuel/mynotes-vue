@@ -3,7 +3,7 @@
     <nav class="header">
       <div class="container">
         <Logo size="24px" />
-        <span>Sair</span>
+        <button type="button" class="exit" v-on:click="onLogout">Sair</button>
       </div>
     </nav>
     <main>
@@ -35,7 +35,12 @@ export default {
     this.fetchNotes()
   },
   methods: {
-    ...mapActions(['fetchNotes'])
+    ...mapActions(['fetchNotes', 'logout']),
+    async onLogout () {
+      await this.logout()
+      this.$toasts.success('Até mais!')
+      this.$router.push({ name: 'Login' })
+    }
   }
 }
 </script>
@@ -69,6 +74,10 @@ export default {
         font-weight: 600;
         color: #fff;
         font-size: 24px;
+      }
+
+      button.exit {
+        background: none;
       }
     }
   }
