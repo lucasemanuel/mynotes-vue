@@ -1,5 +1,9 @@
 <template>
-  <button class="button-bookmark button" :class="{ favorited: favorited }">
+  <button
+    class="button-bookmark button"
+    :class="{ favorited: favorited }"
+    type="button"
+  >
     <font-awesome-icon :icon="iconBookmark" />
   </button>
 </template>
